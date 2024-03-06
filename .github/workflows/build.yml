@@ -1,0 +1,27 @@
+name: Build Workflow
+
+on: [push]
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    container: syrriinge/pintos-sp24:latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Disable workflow commands
+        run: |
+          stopMarker=$(uuidgen)
+          echo "::stop-commands::$stopMarker"
+      - name: Build
+        run: |
+          cd src/threads
+          make -j
