@@ -23,5 +23,5 @@ jobs:
           echo "::stop-commands::$stopMarker"
       - name: Build
         run: |
-          cd src/threads
+          cd src/userprog
           make -j
